@@ -1,6 +1,6 @@
-package tddBookStudy.chapter2;
+package tddBookStudy.chapter2.CalculatorTest;
 
-public class CalculatorTest {
+public class Calculator {
 
     public static int plus(int x, int y){
         return x+y;
