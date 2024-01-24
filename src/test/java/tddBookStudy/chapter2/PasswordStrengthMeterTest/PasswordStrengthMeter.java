@@ -3,30 +3,27 @@ package tddBookStudy.chapter2.PasswordStrengthMeterTest;
 public class PasswordStrengthMeter {
 
     public static PasswordStrength meter (String password){
-        if( password.length() < 8 ) {
-            if( !containsUppercase(password) ){
-                return PasswordStrength.WEAK;
-            }
-            else if( !containsNumber(password) ){
-                return PasswordStrength.WEAK;
-            }
-            else
-                return PasswordStrength.NORMAL;
-        }
-        else{
-            if( !containsUppercase(password) ){
-                if( !containsNumber(password) )
-                    return PasswordStrength.WEAK;
-                else
-                    return PasswordStrength.NORMAL;
-            }
-            else if( !containsNumber(password) ){
-                return PasswordStrength.NORMAL;
-            }
-            else
-                return PasswordStrength.STRONG;
-        }
+
+        if(password == null || password.isEmpty()) return PasswordStrength.INVALID;
+
+        int meterCnt = getMetCriteriaCounts(password);
+
+        if( meterCnt <= 1 ) return PasswordStrength.WEAK;
+        if( meterCnt == 2 ) return PasswordStrength.NORMAL;
+
+        return PasswordStrength.STRONG;
+
     }
+
+    private static int getMetCriteriaCounts(String password) {
+        int meterCnt = 0;
+        if( password.length() >= 8 )        meterCnt++;
+        if( containsUppercase(password) )   meterCnt++;
+        if( containsNumber(password) )      meterCnt++;
+
+        return meterCnt;
+    }
+
     public static boolean containsUppercase(String input) {
         // 대문자가 포함되어 있는지 체크
         for (char c : input.toCharArray()) {

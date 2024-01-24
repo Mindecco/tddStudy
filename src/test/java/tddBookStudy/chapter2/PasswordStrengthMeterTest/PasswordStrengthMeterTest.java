@@ -51,4 +51,15 @@ public class PasswordStrengthMeterTest {
         assertEquals(PasswordStrength.WEAK,PasswordStrengthMeter.meter("dg@"));
         assertEquals(PasswordStrength.WEAK,PasswordStrengthMeter.meter("gh$@%f"));
     }
+
+    @Test
+    void NPE_피하기(){
+        assertEquals(PasswordStrength.INVALID,PasswordStrengthMeter.meter(null));
+    }
+
+    @Test
+    void 공백문자열피하기(){
+        assertEquals(PasswordStrength.INVALID,PasswordStrengthMeter.meter(""));
+    }
+
 }
